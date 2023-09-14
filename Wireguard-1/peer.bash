@@ -88,10 +88,14 @@ AllowedIPs = 10.254.132.100/32
 # ${the_client} end
 " | tee -a wg0.conf
 
-cp wg0.conf /etc/wireguard/wg0.conf
 
+#copy to wiregaurd folder
+echo "
+sudo cp wg0.conf /etc/wireguard
+"
 # Restart the VPN
-wg addconf wg0 <(wg-quick strip wg0)
-
+echo "
+sudo wg addconf wg0 <(wg-quick strip wg0)
+"
 
 
