@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Run 'ip addr' command and filter the output to get just IP addresses
-ip_addr_output=$(ip addr | grep -Eo 'inet ([0-9]{1,3}\.){3}[0-9]{1,3}/[0-9]{1,2}')
+ip_addr_output=$(ip addr | grep -Eo 'inet ([0-9]{1,3}\.){3}[0-9]{1,3}/[0-9]{1,2}' | grep -v "127.0.0.1")
 
 # Display the filtered IP address
 echo "$ip_addr_output"
