@@ -92,7 +92,7 @@ function vpn_menu() {
 		D|d) 
 			echo ""
 			read -p "What is the name of the user you would like to delete?" user_name
-			bash manage-users.bash -d -u $user_name
+			bash manage-users.bash -d -u $(user_name)
 		;;
 		B|b) admin_menu
 		;;
@@ -111,6 +111,10 @@ function security_menu() {
 	clear
 	echo ""
 	echo " * * * SECURITY MENU * * * "
+	echo "[O]pen Network Sockets"
+	echo "[U]ID"
+	echo "[C]heck the last 10 logged in users"
+	echo "[L]ogged in users"
 	echo "[B]ack to admin menu"
         echo "[M]ain menu"
 	echo "[E]xit"
@@ -118,7 +122,14 @@ function security_menu() {
 	read -p "Please enter a choice from above: " choice
 
 	case "$choice" in
-	
+		O|o) netstat -1 |less
+		;;
+		U|u) cat /etc/passwd | grep "x:0" | less
+		;;
+		C|c) lest -n 10 |less
+		;;
+		L|l) who |less
+		;;	
 		B|b) admin_menu
                 ;;
                 M|m) menu
