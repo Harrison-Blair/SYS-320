@@ -2,7 +2,7 @@
 
 # Storyline: Create peer VPN configuration file
 
-if [[ $1 == ""]]
+if [[ $1 == "" ]]
 then
 	# What is the user / peer's name
 	echo -n "What is the peer's name? "
@@ -68,9 +68,13 @@ lport="$(shuf -n1 -i 40000-50000)"
 # Default routes for VPN
 routes="$(head -1 wg0.conf | awk ' { print $8 } ')"
 
+# Generate the IP Address
+tempIP=$(grep AllowedIPs wg0.conf | sort -u | tail -1 | cut -d\. -f4 | cut -d\/ -f1)
+ip=$(expr ${tempIP} + 1)
+
 # Create Client Configuration File
 echo "[Interface]
-Address = 10.254.132.100/24
+Address = 10.254.132.${ip}/24
 DNS = ${dns}
 ListenPort = ${lport}
 MTU = ${mtu}
@@ -89,7 +93,7 @@ echo "
 [Peer]
 PublicKey = ${clientPub}
 PresharedKey = ${pre}
-AllowedIPs = 10.254.132.100/32 
+AllowedIPs = 10.254.132.${ip}/32 
 # ${the_client} end
 " | tee -a wg0.conf
 
