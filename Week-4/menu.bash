@@ -150,7 +150,6 @@ function block_menu() {
 	clear
 	echo ""icnfmp
 	echo " * * * BLOCK LIST MENU * * * "
-	echo "[D]ownload or update threatlist"
 	echo "[I]P Tables"
 	echo "[C]isco"
 	echo "[N]etscreen"
@@ -163,8 +162,7 @@ function block_menu() {
 	read -p "Please enter a choice from above: " choice
 	
 	case "$choice" in
-	D|d) bash parse-threat.bash
-	;;
+
 	I|i) bash parse-threat.bash -i
 	;;
 	C|c) bash parse-threat.bash -c
